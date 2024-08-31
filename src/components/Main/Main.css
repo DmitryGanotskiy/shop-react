@@ -1,0 +1,341 @@
+.main {
+    flex: 1;
+    min-height: 100vh;
+    padding-bottom: 15vh;
+    position: relative;
+    background-color: #ffffff; /* Light background */
+    color: #000000; /* Light text */
+    transition: background-color 1.5s ease, color 1.5s ease;
+}
+
+/* Dark Mode Styles */
+.main.dark-mode {
+    background-color: #1e1e1e; /* Dark background */
+    color: #ffffff; /* Dark text */
+}
+
+.main .nav {
+    display: flex;
+    align-items: end;
+    justify-content:end;
+    font-size: 22px;
+    padding: 20px;
+    color: #585858;
+    transition: color 1.5s ease;
+}
+
+.main .nav img{
+    cursor:pointer;
+}
+
+.main.dark-mode .nav {
+    color: #ffffff;
+}
+
+.main.dark-mode .create {
+    
+    filter: invert(0.7);
+}
+
+.main .nav img {
+    width: 40px;
+    border-radius: 50%;
+    transition: filter 1.5s ease;
+}
+.main .nav .theme{cursor: pointer;}
+
+.main-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.main .greet {
+    margin: 50px 0px;
+    font-size: 46px;
+    color: #c4c7c5;
+    font-weight: 500;
+    padding: 5px;
+    transition: color 1.5s ease;
+}
+
+.main .greet span {
+    background: -webkit-linear-gradient(16deg, #4b90ff, #ff5546);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.main .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.main .card {
+    height: 200px;
+    padding: 15px;
+    background-color: #f0f4f9;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 1.5s ease, color 1.5s ease;
+}
+
+.main .card img {
+    width: 20%;
+    padding: 5px;
+    position: absolute;
+    background-color: white;
+    border-radius: 10px;
+    bottom: 10px;
+    right: 10px;
+    transition: background-color 1.5s ease, filter 1.5s ease;
+}
+
+.main .card p {
+    color: #585858;
+    font-size: 17px;
+    transition: color 1.5s ease;
+}
+
+.main .card:hover {
+    background-color: #e2e6eb;
+}
+
+.main.dark-mode .card {
+    background-color: #333333;
+}
+
+.main.dark-mode .card img {
+    background-color: #d9d9d9;
+    filter: invert(1);
+}
+
+.main.dark-mode .card p {
+    color: #e0e0e0; /* Dark card text */
+}
+
+.main.dark-mode .card:hover {
+    background-color: #444444;
+}
+
+.main-top {
+    position: absolute;
+    top: 16px;
+    width: 100%;
+    max-width: 700px;
+    padding: 0px 20px;
+    padding-left: 200px;
+    margin: auto;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: #f0f4f9;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: background-color 1.5s ease;
+}
+
+.scrollable-input {
+    width: 100%;
+    max-height: 35px;
+    padding: 10px;
+    border: none;
+    resize: none;
+    word-wrap: break-word;
+    background-color: transparent !important;
+    font-size: 16px;
+    outline: none;
+    transition: background-color 1.5s ease, color 1.5s ease;
+}
+
+.scrollable-input::-webkit-scrollbar {
+    display: none;
+}
+
+.search-box img {
+    width: 24px;
+    cursor: pointer;
+    transition: filter 1.5s ease;
+}
+
+.search-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 18px;
+}
+
+.search-box div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.main.dark-mode .scrollable-input {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.main.dark-mode .search-box {
+    background-color: #333333;
+}
+
+.main.dark-mode .search-box img {
+    filter: invert(1);
+}
+
+.result {
+    padding: 0px 5%;
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
+.result::-webkit-scrollbar {
+    display: none;
+}
+
+.result-title {
+    margin: 40px 0px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.result img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+.result-data {
+    display: flex;
+    align-items: start;
+    gap: 20px;
+}
+
+.result-data p {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.8;
+}
+
+/* Profile Bar Styles */
+.profile-bar {
+    position: absolute;
+    top: 70px; /* Adjust based on your design */
+    right: 20px; /* Adjust based on your design */
+    background: #ffffff; /* Light background for profile bar */
+    color: #000000; /* Light text color */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 200px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-bar.dark-mode {
+    background: #333333; /* Dark background for profile bar */
+    color: #ffffff; /* Dark text color */
+}
+
+.profile-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-bar-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-bar-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-bar-username {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.theme-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.theme-icon {
+    width: 24px;
+}
+
+.theme-text {
+    font-size: 14px;
+}
+
+.profile-bar-button {
+    background: #704381;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 5px 0;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-bar-button:hover {
+    background-color: #3e2548;
+}
+
+@media (min-width: 600px) {
+    .main-top input {
+        flex: none;
+        width: 150px;
+    }
+
+    .main-top img {
+        width: 20px;
+    }
+
+    .search-box {
+        padding: 5px 10px;
+    }
+
+    .search-box div {
+        gap: 5px;
+    }
+}
+@media (max-width: 600px) {
+    .main {
+        max-height: 80vh;
+    }
+    .main .card {
+        height:50px;
+        padding: 5px;
+    }
+    .main .card  img {
+        width: 10%;
+    }
+    .main .card p {
+        font-size: 15px;
+    }
+}

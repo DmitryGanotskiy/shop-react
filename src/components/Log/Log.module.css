@@ -1,0 +1,161 @@
+/* Error Message */
+.error {
+    color: red;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top */
+}
+
+/* Main Form Container */
+.main {
+    position: relative;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #000000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1001; /* Ensure it's above the overlay */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 70vh; /* Limit height to viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Close Icon */
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+/* Drag and Drop Area */
+.drag-and-drop {
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+    width: 100%; /* Ensures the drag-and-drop area spans the width of the form */
+}
+
+.drag-and-drop img {
+    max-width: 100%;
+    max-height: 150px;
+    object-fit: contain;
+    margin-top: 10px;
+}
+
+.drag-and-drop p {
+    margin: 0;
+    color: #888;
+}
+
+.drag-and-drop input {
+    display: none;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Ensures the form spans the width of the main container */
+}
+
+form div {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%; /* Ensures each form field spans the width of the form */
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%; /* Ensures the input fields span the width of the form */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%; /* Ensures the buttons span the width of the form */
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+button:not([type="submit"]) {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+button:not([type="submit"]):hover {
+    background-color: #5a6268;
+}
+
+/* Dark Mode */
+.dark-mode .main {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+.dark-mode .drag-and-drop {
+    border-color: #555;
+}
+
+.dark-mode input {
+    background-color: #444;
+    color: #fff;
+    border-color: #555;
+}
+
+.dark-mode button[type="submit"] {
+    background-color: #1a73e8;
+}
+
+.dark-mode button[type="submit"]:hover {
+    background-color: #1558b0;
+}
+
+.dark-mode button:not([type="submit"]) {
+    background-color: #5a6268;
+}
+
+.dark-mode button:not([type="submit"]):hover {
+    background-color: #444;
+}

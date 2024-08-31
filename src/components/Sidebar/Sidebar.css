@@ -1,0 +1,112 @@
+/* Light Theme */
+.sidebar {
+    min-height: 100vh;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #f0f4f9; /* Light background */
+    padding: 25px 15px;
+    transition: background-color 1.5s ease, color 1.5s ease; /* Smooth transition */
+}
+
+.sidebar img {
+    width: 20px;
+    transition: filter 1.5s ease; /* Smooth transition for filter effect */
+}
+
+.sidebar .menu {
+    display: block;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.sidebar .bar-item {
+    margin-top: 30px;
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    padding: 10px 15px;
+    border-radius: 50px;
+    color: grey;
+    cursor: pointer;
+    transition: background-color 1.5s ease, color 1.5s ease; /* Smooth transition */
+}
+
+.sidebar .recent {
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 1.5s;
+}
+
+.sidebar .recent-title {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.sidebar .recent-entry {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    padding-right: 20px;
+    border-radius: 50px;
+    color: #282828; /* Light text color */
+    cursor: pointer;
+    transition: background-color 1.5s ease, color 1.5s ease; /* Smooth transition */
+}
+
+.sidebar .recent-entry:hover {
+    background-color: #e2e6eb; /* Light hover background */
+}
+
+.sidebar .bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .bottom-title {
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+/* Dark Theme */
+.sidebar.dark-mode {
+    background-color: #2f2f2f; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+}
+
+.sidebar.dark-mode img {
+    filter: invert(1);
+}
+
+.sidebar.dark-mode .bar-item {
+    color: #b0b0b0; /* Light button text color */
+}
+
+.sidebar.dark-mode .recent-entry {
+    color: #e0e0e0; /* Light text color */
+}
+
+.sidebar.dark-mode .recent-entry:hover {
+    background-color: #4a4a4a; /* Dark hover background */
+}
+
+.sidebar.dark-mode .bottom-title {
+    color: #e0e0e0; /* Light text color */
+}
+
+/* Smooth transition for the dark mode */
+.sidebar.dark-mode, 
+.sidebar.dark-mode .bar-item, 
+.sidebar.dark-mode .recent-entry, 
+.sidebar.dark-mode .bottom-title,
+.sidebar img {
+    transition: background-color 1.5s ease, color 1.5s ease, filter 1.5s ease;
+}
+
+@media(max-width:600px) {
+    .sidebar {
+        max-height: 80vh; 
+    }
+}

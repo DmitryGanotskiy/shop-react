@@ -1,0 +1,119 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.window {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu {
+  width: 200px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuItem {
+  padding: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.menuItem:hover {
+  background: #f0f0f0;
+}
+
+.content {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 10; /* Ensure it appears above other content */
+}
+
+.accountSettings form {
+  display: flex;
+  flex-direction: column;
+}
+
+.accountSettings div {
+  margin-bottom: 15px;
+}
+
+.accountSettings label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.accountSettings input,
+.accountSettings textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+} .accountSettings textarea{
+    resize: vertical;
+}
+
+.accountSettings button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.accountSettings button:hover {
+  background-color: #0056b3;
+}
+
+.drag-and-drop {
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.drag-and-drop img {
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.drag-and-drop p {
+  margin: 0;
+  color: #888;
+}
+
+.previewPhoto {
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+}
