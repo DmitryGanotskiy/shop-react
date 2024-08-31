@@ -13,6 +13,8 @@ const ContextProvider = (props) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [openSettings, setOpenSettings] = useState(false);
     const [profileBar, setProfileBar] = useState(false);
+    const [openCreate, setOpenCreate] = useState(false);
+    const [openHelp, setOpenHelp] = useState(false);
 
     const newChat = () => {
 
@@ -47,8 +49,12 @@ const ContextProvider = (props) => {
         setUsers,
         currentUser,
         setCurrentUser,
-        profileBar, 
-        setProfileBar
+        profileBar,
+        setProfileBar,
+        openCreate,
+        setOpenCreate,
+        openHelp,
+        setOpenHelp
     };
 
     return (

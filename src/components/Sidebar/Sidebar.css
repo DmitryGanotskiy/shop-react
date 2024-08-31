@@ -23,13 +23,19 @@
 .sidebar .bar-item {
     margin-top: 30px;
     display: flex;
-    align-items: start;
+    align-items: center; /* Center alignment for icon and text */
     gap: 10px;
     padding: 10px 15px;
     border-radius: 50px;
     color: grey;
     cursor: pointer;
-    transition: background-color 1.5s ease, color 1.5s ease; /* Smooth transition */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.sidebar .bar-item:hover {
+    background-color: #e2e6eb; /* Light hover background */
+    color: #333; /* Darker text color on hover */
+    transform: scale(1.02); /* Slightly enlarge on hover */
 }
 
 .sidebar .recent {
@@ -45,21 +51,21 @@
 
 .sidebar .recent-entry {
     display: flex;
-    gap: 10px;
     align-items: center;
     gap: 10px;
     padding: 10px 15px;
-    padding-right: 20px;
     border-radius: 50px;
     color: #282828; /* Light text color */
     cursor: pointer;
-    transition: background-color 1.5s ease, color 1.5s ease; /* Smooth transition */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 .sidebar .recent-entry:hover {
     background-color: #e2e6eb; /* Light hover background */
+    color: #333; /* Darker text color on hover */
 }
 
+/* Bottom section of the sidebar */
 .sidebar .bottom {
     display: flex;
     flex-direction: column;
@@ -84,12 +90,19 @@
     color: #b0b0b0; /* Light button text color */
 }
 
+.sidebar.dark-mode .bar-item:hover {
+    background-color: #4a4a4a; /* Dark hover background */
+    color: #e0e0e0; /* Light text color on hover */
+    transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
 .sidebar.dark-mode .recent-entry {
     color: #e0e0e0; /* Light text color */
 }
 
 .sidebar.dark-mode .recent-entry:hover {
     background-color: #4a4a4a; /* Dark hover background */
+    color: #e0e0e0; /* Light text color on hover */
 }
 
 .sidebar.dark-mode .bottom-title {

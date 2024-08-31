@@ -11,12 +11,13 @@ const Main = () => {
         setInput, input, allInputs,
         openLog, setOpenLog, 
         currentUser, setCurrentUser,
-        profileBar, setProfileBar } = useContext(Context);
+        profileBar, setProfileBar,
+        setOpenCreate } = useContext(Context);
 
     return (
         <div className={`main ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className="nav">
-                {currentUser ? <img className='create' src={assets.create_icon} alt="Create" /> : null}
+                {currentUser ? <img className='create' onClick={()=>setOpenCreate(true)} src={assets.create_icon} alt="Create" /> : null}
                 <img
                     src={currentUser && currentUser.img ? currentUser.img : assets.user_icon}
                     onClick={() => !currentUser ? setOpenLog(openLog => !openLog) : setProfileBar(profileBar => !profileBar)}

@@ -6,7 +6,8 @@ import { Context } from '../../context/Cont';
 const Sidebar = () => {
 
     const [extended, setExtended] = useState(false);
-    const {darkMode, onSent, setRecentPrompt, newChat, setAllInputs, allInputs, save, openSettings, setOpenSettings} = useContext(Context);
+    const {darkMode, onSent, setRecentPrompt, newChat, setAllInputs, allInputs, save, openSettings, setOpenSettings,openHelp,
+        setOpenHelp} = useContext(Context);
 
     const loadPrompt = async (prompt) => {
 
@@ -36,16 +37,16 @@ const Sidebar = () => {
 
             </div>
             <div className='bottom'>
-                <div className="bottom-item recent-entry">
-                    <img src={assets.question_icon} alt="Question" />
+                <div className="bottom-item recent-entry" onClick={()=>setOpenHelp(openHelp => !openHelp)}>
+                    <img src={assets.question_icon} alt="Question"/>
                     {extended? <p>Help & Support</p> :null}
                 </div>
                 <div className="bottom-item recent-entry">
                     <img src={assets.history_icon} alt="history" />
                     {extended? <p>Activity</p> :null}
                 </div>
-                <div className="bottom-item recent-entry">
-                    <img src={assets.setting_icon} alt="Question" onClick={()=>setOpenSettings(openSettings => !openSettings)}/>
+                <div className="bottom-item recent-entry" onClick={()=>setOpenSettings(openSettings => !openSettings)}>
+                    <img src={assets.setting_icon} alt="Question"/>
                     {extended? <p>Settings</p> :null}
                 </div>
             </div>
