@@ -4,7 +4,10 @@ import { Context } from '../../context/Cont';
 import { assets } from '../../assets/assets';
 
 const Create = () => {
-    const { currentUser, openCreate, setOpenCreate } = useContext(Context);
+    const { currentUser, 
+        openCreate, setOpenCreate, 
+        upload, setUpload,
+        openStage1, setOpenStage1 } = useContext(Context);
 
     if (!openCreate) return null;
 
@@ -18,8 +21,18 @@ const Create = () => {
         const validFiles = Array.from(files).filter(file =>
             file.type.startsWith('image/') || file.type.startsWith('video/')
         );
+
+        if (validFiles.length > 0) {
+            // Update the upload.images array with the valid files
+            setUpload(prevState => ({
+                ...prevState,
+                images: [...prevState.images, ...validFiles]
+            }));
+
+            setOpenStage1(true);
+        }
+
         console.log('Dropped files:', validFiles);
-        // Further processing can be done here, like uploading the files
     };
 
     const handleDragOver = (e) => {
@@ -31,8 +44,19 @@ const Create = () => {
         const validFiles = Array.from(files).filter(file =>
             file.type.startsWith('image/') || file.type.startsWith('video/')
         );
+
+        if (validFiles.length > 0) {
+            // Update the upload.images array with the valid files
+            setUpload(prevState => ({
+                ...prevState,
+                images: [...prevState.images, ...validFiles]
+            }));
+
+            // Open Stage 1
+            setOpenStage1(true);
+        }
+
         console.log('Selected files:', validFiles);
-        // Further processing can be done here, like uploading the files
     };
 
     const handleUploadBoxClick = () => {
@@ -96,13 +120,14 @@ const Create = () => {
                             onDrop={handleDrop}
                             onDragOver={handleDragOver}
                         >
-                            Click or drop to Select
+                            Click or Drag & Drop to Select
                             <input
                                 id="fileInput"
                                 type="file"
                                 name="file"
                                 accept="image/*,video/*"
                                 onChange={handleFileChange}
+                                multiple
                                 style={{ display: 'none' }}
                             />
                         </div>

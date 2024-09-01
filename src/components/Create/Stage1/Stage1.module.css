@@ -1,0 +1,209 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+.container {
+    width: 95%;
+    max-width: 1000px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.topRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.uploadBox {
+    width: 45%;
+    height: 250px;
+    background-color: #ffffff;
+    border: 2px dashed #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    position: relative;
+}
+
+.uploadButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.carousel {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overflow-y: hidden;
+}
+
+.carouselItem {
+    min-width: 100%;
+    height: 100%;
+    scroll-snap-align: start;
+    position: relative;
+}
+
+.carouselImage,
+.carouselVideo {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 5px;
+}
+
+.deleteButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.map {
+    width: 45%;
+    height: 217px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    position: relative;
+}
+
+.searchBox {
+    position: relative;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.searchBox input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.searchBox img {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+
+.searchBox button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.formWrapper {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 60px; /* Space for the bottom bar */
+}
+
+.formGroup {
+    margin-bottom: 20px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.bottomBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Full width within the container */
+    background-color: #f5f5f5;
+    padding: 10px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd;
+}
+
+.formStatus {
+    font-size: 14px;
+    color: #c90707;
+}
+
+.submitButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 40%;
+}
+
+.submitButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.closeIcon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    z-index: 1000;
+}

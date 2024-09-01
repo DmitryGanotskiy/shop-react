@@ -12,21 +12,22 @@ const Main = () => {
         openLog, setOpenLog, 
         currentUser, setCurrentUser,
         profileBar, setProfileBar,
-        setOpenCreate } = useContext(Context);
+        setOpenCreate,
+        isLogin, setIsLogin } = useContext(Context);
 
     return (
         <div className={`main ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className="nav">
-                {currentUser ? <img className='create' onClick={()=>setOpenCreate(true)} src={assets.create_icon} alt="Create" /> : null}
+                {isLogin ? <img className='create' onClick={()=>setOpenCreate(true)} src={assets.create_icon} alt="Create" /> : null}
                 <img
                     src={currentUser && currentUser.img ? currentUser.img : assets.user_icon}
-                    onClick={() => !currentUser ? setOpenLog(openLog => !openLog) : setProfileBar(profileBar => !profileBar)}
+                    onClick={() => !isLogin ? setOpenLog(openLog => !openLog) : setProfileBar(profileBar => !profileBar)}
                     alt='User'
                 />
             </div>
 
             {/* Profile Bar */}
-            {profileBar && currentUser && (
+            {profileBar && isLogin && (
                 <div className="profile-bar">
                     <div className="profile-bar-content">
                         <div className="profile-bar-details">
@@ -41,7 +42,7 @@ const Main = () => {
                                 <p className="theme-text">{darkMode ? 'Dark Mode' : 'Light Mode'}</p>
                             </div>
                             <p className="profile-bar-button" onClick={() => setOpenLog(openLog => !openLog)}>Switch Account</p>
-                            <p className="profile-bar-button" onClick={()=> {setCurrentUser(null); setProfileBar(false) }}>Log Out</p>
+                            <p className="profile-bar-button" onClick={()=> {setCurrentUser(null); setProfileBar(false); setIsLogin(false) }}>Log Out</p>
                         </div>
                     </div>
                 </div>

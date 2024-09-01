@@ -4,8 +4,7 @@ import styles from './Log.module.css';
 import { assets } from '../../assets/assets';
 
 const Log = () => {
-  const { darkMode, toggleDarkMode, openLog, setOpenLog, setUsers, setCurrentUser } = useContext(Context);
-  const [isLogin, setIsLogin] = useState(false); // Default to registration
+  const { darkMode, toggleDarkMode, openLog, setOpenLog, setUsers, setCurrentUser, isLogin, setIsLogin } = useContext(Context);
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -17,6 +16,7 @@ const Log = () => {
   });
   const [previewPhoto, setPreviewPhoto] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [openLogin, setOpenLogin] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,8 +39,8 @@ const Log = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-
-    if (isLogin) {
+  
+    if (openLogin) {
       // Login logic
       const user = storedUsers.find(
         (user) => user.email === formData.email && user.password === formData.password
@@ -50,7 +50,8 @@ const Log = () => {
         alert('Login successful!');
         setFormData({ username: '', password: '', phone: '', link: '', email: '', birthday: '', photo: null });
         setPreviewPhoto(null);
-        setErrorMessage(''); // Clear any existing error messages
+        setErrorMessage('');
+        setIsLogin(true);
       } else {
         setErrorMessage('Invalid email or password');
       }
@@ -63,31 +64,68 @@ const Log = () => {
           (formData.phone && user.phone === formData.phone) ||
           (formData.email && user.email === formData.email)
       );
-
+  
       if (userExists) {
         setErrorMessage('A user with the same username, password, phone number, or email already exists.');
       } else {
-        const newUser = {
-          img: formData.photo ? URL.createObjectURL(formData.photo) : null, // Convert file to URL
-          username: formData.username,
-          password: formData.password,
-          phone: formData.phone,
-          link: formData.link,
-          email: formData.email,
-          birthday: formData.birthday,
-          description: 'A dedicated and detail-oriented professional with a passion for continuous learning and a knack for solving complex problems efficiently.'
-        };
-
-        storedUsers.push(newUser);
-        localStorage.setItem('users', JSON.stringify(storedUsers));
-        setUsers(storedUsers);
-        alert('Registration successful!');
+        const currentUserIndex = storedUsers.findIndex(user => user.email === formData.email);
+        
+        if (currentUserIndex > -1) {
+          // Update only the specified fields
+          const updatedUser = {
+            ...storedUsers[currentUserIndex],
+            img: formData.photo ? URL.createObjectURL(formData.photo) : storedUsers[currentUserIndex].img,
+            username: formData.username || storedUsers[currentUserIndex].username,
+            password: formData.password || storedUsers[currentUserIndex].password,
+            phone: formData.phone || storedUsers[currentUserIndex].phone,
+            link: formData.link || storedUsers[currentUserIndex].link,
+            birthday: formData.birthday || storedUsers[currentUserIndex].birthday,
+            description: storedUsers[currentUserIndex].description || 'A dedicated and detail-oriented professional with a passion for continuous learning and a knack for solving complex problems efficiently.'
+          };
+  
+          storedUsers[currentUserIndex] = updatedUser;
+          localStorage.setItem('users', JSON.stringify(storedUsers));
+          setCurrentUser(updatedUser);
+          setUsers(storedUsers);
+          alert('Profile updated successfully!');
+        } else {
+          // Create new user if not already in storedUsers
+          const newUser = {
+            img: formData.photo ? URL.createObjectURL(formData.photo) : null, // Convert file to URL
+            username: formData.username,
+            password: formData.password,
+            phone: formData.phone,
+            link: formData.link,
+            email: formData.email,
+            birthday: formData.birthday,
+            description: 'A dedicated and detail-oriented professional with a passion for continuous learning and a knack for solving complex problems efficiently.',
+            posts: [], // Initialize with empty posts
+            followers: [],
+            following: [],
+            messages: [],
+            notifications: [],
+            settings: {},
+            chatHistory: [],
+            chat: [],
+            chats: [],
+            groups: [],
+            chatsGroups: [],
+            rating: 0,
+            loggedIn: false
+          };
+  
+          storedUsers.push(newUser);
+          localStorage.setItem('users', JSON.stringify(storedUsers));
+          setUsers(storedUsers);
+          setCurrentUser(newUser);
+          alert('Registration successful!');
+        }
         setFormData({ username: '', password: '', phone: '', link: '', email: '', birthday: '', photo: null });
         setPreviewPhoto(null);
         setErrorMessage(''); // Clear any existing error messages
       }
     }
-  };
+  };  
 
   const closeForm = () => {
     setOpenLog((openLog) => !openLog);
@@ -98,9 +136,9 @@ const Log = () => {
       <div className={`${styles.overlay} ${darkMode ? 'dark-mode' : 'light-mode'}`}>
         <div className={styles.main}>
           <img src={assets.close_icon} className={styles['close-icon']} alt="Close" onClick={closeForm} />
-          <h2>{isLogin ? 'Login' : 'Register'}</h2>
+          <h2>{openLogin ? 'Login' : 'Register'}</h2>
           <form onSubmit={handleSubmit}>
-            {!isLogin && (
+            {!openLogin && (
               <>
                 {/* Photo Upload */}
                 <div
@@ -126,7 +164,7 @@ const Log = () => {
             )}
 
             {/* Username */}
-            {!isLogin && (
+            {!openLogin && (
               <div>
                 <label>Username:</label>
                 <input
@@ -164,7 +202,7 @@ const Log = () => {
             </div>
 
             {/* Phone (Optional) */}
-            {!isLogin && (
+            {!openLogin && (
               <div>
                 <label>Phone:</label>
                 <input
@@ -177,7 +215,7 @@ const Log = () => {
             )}
 
             {/* Website Link */}
-            {!isLogin && (
+            {!openLogin && (
               <div>
                 <label>Website Link:</label>
                 <input
@@ -190,7 +228,7 @@ const Log = () => {
             )}
 
             {/* Birthday */}
-            {!isLogin && (
+            {!openLogin && (
               <div>
                 <label>Birthday:</label>
                 <input
@@ -208,12 +246,12 @@ const Log = () => {
             {errorMessage && <p className={styles.error}>{errorMessage}</p>}
 
             {/* Submit Button */}
-            <button type="submit">{isLogin ? 'Login' : 'Register'}</button>
+            <button  type="submit" >{isLogin ? 'Login' : 'Register'}</button>
           </form>
 
           {/* Toggle Login/Register */}
-          <button onClick={() => setIsLogin(!isLogin)}>
-            {isLogin ? 'Switch to Register' : 'Switch to Login'}
+          <button onClick={() => setOpenLogin(!openLogin)}>
+            {openLogin ? 'Switch to Register' : 'Switch to Login'}
           </button>
         </div>
       </div>
