@@ -13,37 +13,62 @@ const Stage3 = () => {
 
     if (!openStage3) return null;
 
-    const onConfirm = () => {
-        if (!currentUser) {
-            console.error('currentUser or currentUser.posts is not properly defined');
-            return;
-        }
-        console.log(currentUser)
-    
-        // Update the currentUser's posts array
-        const updatedUser = {
-            ...currentUser,
-            posts: [...currentUser.posts, upload],
-        };
-    
-        // Update the currentUser in the users array
-        const updatedUsers = users.map(user =>
-            user.email === currentUser.email ? updatedUser : user
-        );
-    
-        // Save the updated users array to local storage
-        localStorage.setItem('users', JSON.stringify(updatedUsers));
-    
-        // Update the context and close the stage
-        setCurrentUser(updatedUser);
-        setUsers(updatedUsers);
-    
-        console.log(updatedUsers);
-        setOpenStage3(false);
-        setOpenStage2(false);
-        setOpenStage1(false);
-    };
-    
+const convertToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
+const onConfirm = async () => {
+  if (!currentUser) {
+    console.error('currentUser is not properly defined');
+    return;
+  }
+
+  const alluse = JSON.parse(localStorage.getItem('users'));
+  const userToUpdate = alluse.find(user => user.password === currentUser.password && user.email === currentUser.email);
+  console.log(alluse);
+
+  if (!userToUpdate) {
+    console.error('User with the same password as the current user was not found');
+    return;
+  }
+
+  // Convert images to base64 strings
+  const base64Images = await Promise.all(upload.images.map(file => convertToBase64(file)));
+
+  // Update the user's posts array
+  const updatedUser = {
+    ...userToUpdate,
+    posts: [...userToUpdate.posts, { ...upload, images: base64Images }],
+  };
+
+  // Update the users array with the updated user
+  const updatedUsers = users.map(user =>
+    user.password === currentUser.password ? updatedUser : user
+  );
+
+  // Check if the new data exceeds local storage quota
+  try {
+    localStorage.setItem('users', JSON.stringify(updatedUsers));
+  } catch (e) {
+    console.error('Exceeded local storage quota', e);
+    alert('Exceeded local storage quota. Please remove some data.');
+    return;
+  }
+
+  // Update the context with the updated users and currentUser
+  setUsers(updatedUsers);
+  setCurrentUser(updatedUser);
+
+  console.log(JSON.parse(localStorage.getItem('users')));
+  setOpenStage3(false);
+  setOpenStage2(false);
+  setOpenStage1(false);
+};
 
     const sliderSettings = {
         dots: true,

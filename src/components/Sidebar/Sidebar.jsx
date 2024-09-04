@@ -7,11 +7,8 @@ const Sidebar = () => {
 
     const [extended, setExtended] = useState(false);
     const {darkMode, onSent, setRecentPrompt, newChat, setAllInputs, allInputs, save, openSettings, setOpenSettings,openHelp,
-        setOpenHelp} = useContext(Context);
-
-    const loadPrompt = async (prompt) => {
-
-    }
+        setOpenHelp, setOpenLog,
+        isLogin, setIsLogin} = useContext(Context);
 
     return (
         <div className={`sidebar ${darkMode ? 'dark-mode' : 'light-mode'}`}>
@@ -45,7 +42,7 @@ const Sidebar = () => {
                     <img src={assets.history_icon} alt="history" />
                     {extended? <p>Activity</p> :null}
                 </div>
-                <div className="bottom-item recent-entry" onClick={()=>setOpenSettings(openSettings => !openSettings)}>
+                <div className="bottom-item recent-entry" onClick={ ()=> isLogin ? setOpenSettings(openSettings => !openSettings) : setOpenLog(true)}>
                     <img src={assets.setting_icon} alt="Question"/>
                     {extended? <p>Settings</p> :null}
                 </div>

@@ -17,6 +17,7 @@ import sun_icon from './sun.svg'
 import moon_icon from './moon.svg'
 import close_icon from './close_icon.svg'
 import create_icon from './create_icon.svg'
+import dot_icon from './dot_icon.svg'
 
 export const assets = {
     history_icon,
@@ -37,5 +38,6 @@ export const assets = {
     sun_icon,
     moon_icon,
     close_icon,
-    create_icon
+    create_icon,
+    dot_icon
 }

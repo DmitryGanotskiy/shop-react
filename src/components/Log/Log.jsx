@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../context/Cont';
 import styles from './Log.module.css';
 import { assets } from '../../assets/assets';
 
 const Log = () => {
   const { darkMode, toggleDarkMode, openLog, setOpenLog, setUsers, setCurrentUser, isLogin, setIsLogin } = useContext(Context);
+  
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -14,9 +15,16 @@ const Log = () => {
     birthday: '',
     photo: null
   });
+
   const [previewPhoto, setPreviewPhoto] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [openLogin, setOpenLogin] = useState(false);
+
+  // Load users from localStorage on component mount
+  useEffect(() => {
+    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    setUsers(storedUsers); // Set users in context
+  }, [setUsers]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,7 +47,7 @@ const Log = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-  
+
     if (openLogin) {
       // Login logic
       const user = storedUsers.find(
@@ -48,7 +56,10 @@ const Log = () => {
       if (user) {
         setCurrentUser(user);
         alert('Login successful!');
-        setFormData({ username: '', password: '', phone: '', link: '', email: '', birthday: '', photo: null });
+        setFormData({
+          username: '', password: '', phone: '', link: '', email: '',
+          birthday: '', photo: null
+        });
         setPreviewPhoto(null);
         setErrorMessage('');
         setIsLogin(true);
@@ -64,68 +75,52 @@ const Log = () => {
           (formData.phone && user.phone === formData.phone) ||
           (formData.email && user.email === formData.email)
       );
-  
+
       if (userExists) {
         setErrorMessage('A user with the same username, password, phone number, or email already exists.');
       } else {
-        const currentUserIndex = storedUsers.findIndex(user => user.email === formData.email);
-        
-        if (currentUserIndex > -1) {
-          // Update only the specified fields
-          const updatedUser = {
-            ...storedUsers[currentUserIndex],
-            img: formData.photo ? URL.createObjectURL(formData.photo) : storedUsers[currentUserIndex].img,
-            username: formData.username || storedUsers[currentUserIndex].username,
-            password: formData.password || storedUsers[currentUserIndex].password,
-            phone: formData.phone || storedUsers[currentUserIndex].phone,
-            link: formData.link || storedUsers[currentUserIndex].link,
-            birthday: formData.birthday || storedUsers[currentUserIndex].birthday,
-            description: storedUsers[currentUserIndex].description || 'A dedicated and detail-oriented professional with a passion for continuous learning and a knack for solving complex problems efficiently.'
-          };
-  
-          storedUsers[currentUserIndex] = updatedUser;
-          localStorage.setItem('users', JSON.stringify(storedUsers));
-          setCurrentUser(updatedUser);
-          setUsers(storedUsers);
-          alert('Profile updated successfully!');
-        } else {
-          // Create new user if not already in storedUsers
-          const newUser = {
-            img: formData.photo ? URL.createObjectURL(formData.photo) : null, // Convert file to URL
-            username: formData.username,
-            password: formData.password,
-            phone: formData.phone,
-            link: formData.link,
-            email: formData.email,
-            birthday: formData.birthday,
-            description: 'A dedicated and detail-oriented professional with a passion for continuous learning and a knack for solving complex problems efficiently.',
-            posts: [], // Initialize with empty posts
-            followers: [],
-            following: [],
-            messages: [],
-            notifications: [],
-            settings: {},
-            chatHistory: [],
-            chat: [],
-            chats: [],
-            groups: [],
-            chatsGroups: [],
-            rating: 0,
-            loggedIn: false
-          };
-  
-          storedUsers.push(newUser);
-          localStorage.setItem('users', JSON.stringify(storedUsers));
-          setUsers(storedUsers);
-          setCurrentUser(newUser);
-          alert('Registration successful!');
-        }
-        setFormData({ username: '', password: '', phone: '', link: '', email: '', birthday: '', photo: null });
+        // Create a new user
+        const newUser = {
+          img: formData.photo ? URL.createObjectURL(formData.photo) : null,
+          username: formData.username,
+          password: formData.password,
+          phone: formData.phone,
+          link: formData.link,
+          email: formData.email,
+          birthday: formData.birthday,
+          description: 'A dedicated and detail-oriented professional with a passion for continuous learning and a knack for solving complex problems efficiently.',
+          posts: [],
+          followers: [],
+          following: [],
+          messages: [],
+          notifications: [],
+          settings: {},
+          chatHistory: [],
+          chat: [],
+          chats: [],
+          groups: [],
+          chatsGroups: [],
+          rating: 0,
+          loggedIn: false
+        };
+
+        storedUsers.push(newUser);
+        localStorage.setItem('users', JSON.stringify(storedUsers));
+        setUsers(storedUsers);
+        setCurrentUser(newUser);
+        alert('Registration successful!');
+
+        // Clear form data
+        setFormData({
+          username: '', password: '', phone: '', link: '', email: '',
+          birthday: '', photo: null
+        });
         setPreviewPhoto(null);
         setErrorMessage(''); // Clear any existing error messages
       }
     }
-  };  
+    console.log(JSON.parse(localStorage.getItem('users')));
+  };
 
   const closeForm = () => {
     setOpenLog((openLog) => !openLog);
@@ -246,7 +241,7 @@ const Log = () => {
             {errorMessage && <p className={styles.error}>{errorMessage}</p>}
 
             {/* Submit Button */}
-            <button  type="submit" >{isLogin ? 'Login' : 'Register'}</button>
+            <button type="submit">{isLogin ? 'Login' : 'Register'}</button>
           </form>
 
           {/* Toggle Login/Register */}
